@@ -3,9 +3,10 @@ Copyright (c) 2026 ArtCraft Team and the PdfCraft contributors.
 Licensed under the MIT License or the Apache License, Version 2.0, at your option
 (LICENSE-MIT, LICENSE-APACHE).
 
-The ArtCraft name, wordmark and logos in docs/brand/ are trademarks of the ArtCraft Team. They are
-not open source and are not covered by the license above; their terms are in
-docs/brand/LICENSE-brand.txt.
+pdf-engine is a modified version (fork) of PdfCraft. As the ArtCraft Team's trademark terms
+require, it does not include the ArtCraft name, wordmark or logos: docs/brand/ holds neutral
+placeholder art, contributor-original under the license above. Fork additions copyright (c) 2026
+the pdf-engine contributors.
 
 Third-party material
 
