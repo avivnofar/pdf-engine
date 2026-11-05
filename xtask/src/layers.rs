@@ -90,6 +90,8 @@ pub const TABLE: &[(&str, Class)] = &[
     ("pdfcraft", Class::Exempt),
     ("cli", Class::Exempt),
     ("web", Class::Exempt),
+    // pdf-engine fork: the JavaScript package (apps/pdf-engine-js), a frontend like web.
+    ("pdf-engine-js", Class::Exempt),
     ("xtask", Class::Exempt),
 ];
 
