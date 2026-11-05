@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -19.42 136.34 136.34" role="img" aria-label="ArtCraft">
-  <title>ArtCraft</title>
-  <path fill="#4e7bfb" d="M104.28,49.49L81.55,0h-31.23l-3.17,4.76L14.75,53.63,0,75.85l21.55,21.55,63.79-36.94,16.99,37.04,14.01-21.74-12.06-26.27ZM32.89,65.66l32.42-48.87,10.91,23.77-43.32,25.09Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="pdf-engine">
+  <rect x="4" y="4" width="120" height="120" rx="26" fill="#1f7a6d"/>
+  <path d="M40 26h34l18 18v58a4 4 0 0 1-4 4H40a4 4 0 0 1-4-4V30a4 4 0 0 1 4-4z" fill="#ffffff"/>
+  <path d="M74 26v14a4 4 0 0 0 4 4h14z" fill="#1f7a6d" opacity="0.45"/>
+  <rect x="46" y="58" width="36" height="6" rx="3" fill="#1f7a6d"/>
+  <rect x="46" y="72" width="36" height="6" rx="3" fill="#1f7a6d"/>
+  <rect x="46" y="86" width="22" height="6" rx="3" fill="#1f7a6d"/>
 </svg>

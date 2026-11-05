@@ -1,0 +1,83 @@
+# pdf-engine fork: build the JavaScript package (apps/pdf-engine-js) and publish it to the
+# `js-dist` branch, where any website can load it from jsDelivr:
+#   https://cdn.jsdelivr.net/gh/avivnofar/pdf-engine@js-dist/pdf_engine_js.js
+# Runs only in the fork; upstream PdfCraft never sees this file in its own runs.
+name: js-package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/pdf-engine-js/**"
+      - "crates/**"
+      - "Cargo.lock"
+      - ".github/workflows/js-package.yml"
+  pull_request:
+    paths:
+      - "apps/pdf-engine-js/**"
+      - "crates/automation/**"
+      - ".github/workflows/js-package.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: js-package-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.repository == 'avivnofar/pdf-engine'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust with the wasm32 target
+        run: |
+          rustup toolchain install stable --profile minimal --target wasm32-unknown-unknown
+          rustup default stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: js-package
+      - name: Install wasm-pack
+        run: curl -sSfL https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
+      - name: Native tests
+        run: |
+          cargo test -p pdf-engine-js -j 4
+          cargo test -p pdfcraft-automation --lib memory -j 4
+      - name: Build the package
+        run: wasm-pack build apps/pdf-engine-js --target web --release --out-dir pkg
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Smoke test the .wasm in Node
+        run: node apps/pdf-engine-js/tests/smoke.mjs
+      - name: Size report
+        run: ls -la apps/pdf-engine-js/pkg
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdf-engine-js
+          path: apps/pdf-engine-js/pkg
+
+  publish:
+    needs: build
+    if: github.repository == 'avivnofar/pdf-engine' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pdf-engine-js
+          path: pkg
+      - name: Push to the js-dist branch
+        run: |
+          cd pkg
+          rm -f .gitignore
+          git init -q -b js-dist
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "pdf-engine-js build from ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" js-dist

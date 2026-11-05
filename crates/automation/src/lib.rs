@@ -27,6 +27,8 @@ mod links;
 #[cfg(feature = "mcp")]
 pub mod mcp;
 mod measure;
+// pdf-engine fork: open/save from memory for the JavaScript package (crates/js).
+pub mod memory;
 mod model3d;
 mod model_render;
 mod printing;
