@@ -1,0 +1,21 @@
+{
+  "name": "pdf-engine-js",
+  "type": "module",
+  "description": "The PdfCraft PDF engine for JavaScript: open, edit, render and save PDFs in the browser or Node, with no UI and no server",
+  "version": "0.1.0",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avivnofar/pdf-engine"
+  },
+  "files": [
+    "pdf_engine_js_bg.wasm",
+    "pdf_engine_js.js",
+    "pdf_engine_js.d.ts"
+  ],
+  "main": "pdf_engine_js.js",
+  "types": "pdf_engine_js.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
